@@ -30,7 +30,7 @@ Q_LOGGING_CATEGORY(calendarSourceCat, "watchfish-CalendarSource")
 #ifdef MER_EDITION_SAILFISH
 
 CalendarSourcePrivate::CalendarSourcePrivate(CalendarSource *q)
-	: calendar(new mKCal::ExtendedCalendar(KDateTime::Spec::LocalZone())),
+	: calendar(new mKCal::ExtendedCalendar(QTimeZone::systemTimeZone())),
 	  calendarStorage(calendar->defaultStorage(calendar)),
 	  q_ptr(q)
 {
@@ -70,7 +70,7 @@ void CalendarSourcePrivate::storageFinished(mKCal::ExtendedStorage *storage, boo
 
 CalendarEvent CalendarSourcePrivate::convertToEvent(const mKCal::ExtendedCalendar::ExpandedIncidence &expanded)
 {
-	const KCalCore::Incidence::Ptr &incidence = expanded.second;
+	const KCalendarCore::Incidence::Ptr &incidence = expanded.second;
 	CalendarEvent event;
 
 	event.setUid(incidence->uid());
